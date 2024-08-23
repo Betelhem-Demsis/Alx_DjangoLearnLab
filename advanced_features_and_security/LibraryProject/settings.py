@@ -56,7 +56,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'relationship_app.CustomUser'
 
 
 TEMPLATES = [
