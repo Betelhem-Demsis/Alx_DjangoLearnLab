@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Member Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'admin_view' %}">Admin View</a></li>
+                <li><a href="{% url 'librarian_view' %}">Librarian View</a></li>
+                <li><a href="{% url 'member_view' %}">Member Home</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <p>Welcome, Member! Here you can view member-specific content.</p>
+        <!-- Add member-specific content here -->
+    </main>
+</body>
+</html>
