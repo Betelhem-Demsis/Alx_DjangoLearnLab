@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render
 
 def is_member(user):
     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
