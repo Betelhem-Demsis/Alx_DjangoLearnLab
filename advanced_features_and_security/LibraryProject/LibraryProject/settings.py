@@ -25,7 +25,35 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n^mb!shgdgrc#mub$0rpaq54wdd3uejbv+2nk6$oa34+61#b0g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+# Settings to increase security of the application
+# https://docs.djangoproject.com/en/5.0/ref/middleware/#module-django.middleware.security
+
+# Enable the browser's XSS filtering protection
+# https://docs.djangoproject.com/en/5.0/ref/clickjacking/#setting-x-frame-options
+SECURE_BROWSER_XSS_FILTER=True
+
+# Clickjacking protection: https://docs.djangoproject.com/en/5.0/ref/clickjacking/#module-django.middleware.clickjacking
+# This is the default setting. It prevents the response from being served in a
+# frame in a web page of a different origin than the site the request came from.
+# If you need to allow the website to be framed, set this to one of the other
+# values: 'SAMEORIGIN', 'ALLOW-FROM https://example.com/'
+X_FRAME_OPTIONS='DENY'
+
+# Enable the "Content-Security-Policy" header. This helps to prevent certain
+# types of attacks, like cross-site scripting (XSS) and data injection attacks.
+# https://docs.djangoproject.com/en/5.0/ref/middleware/#module-django.middleware.security
+SECURE_CONTENT_TYPE_NOSNIFF=True
+
+# Enable the secure flag for the CSRF cookie. This will prevent the cookie from
+# being transmitted over an unencrypted channel.
+# https://docs.djangoproject.com/en/5.0/ref/settings/#csrf-cookie-secure
+CSRF_COOKIE_SECURE=True
+
+# Enable the secure flag for the session cookie. This will prevent the cookie
+# from being transmitted over an unencrypted channel.
+# https://docs.djangoproject.com/en/5.0/ref/settings/#session-cookie-secure
+SESSION_COOKIE_SECURE=True
 
 ALLOWED_HOSTS = []
 
@@ -53,8 +81,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://trusted.cdn.com')
+CSP_STYLE_SRC = ("'self'", 'https://trusted.cdn.com')
 ROOT_URLCONF = 'LibraryProject.urls'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
