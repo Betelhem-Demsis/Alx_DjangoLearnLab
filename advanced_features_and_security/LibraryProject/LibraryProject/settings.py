@@ -80,6 +80,23 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS=True
 SECURE_HSTS_PRELOAD=True
 
 
+# This setting is used to detect if the request is coming in over HTTPS.
+# https://docs.djangoproject.com/en/5.0/ref/settings/#secure-proxy-ssl-header
+# When using a reverse proxy, the request is coming in over the proxy, not
+# directly from the client. This setting allows us to detect if the request is
+# coming in over HTTPS, even if the client is not directly connecting to the
+# Django server.
+# The value should be a tuple of HTTP header names. The value of the header
+# should be the protocol used by the client to connect to the proxy. For
+# example, if the client is using HTTPS to connect to the proxy, the header
+# should have the value "https".
+# The default value is ("HTTP_X_FORWARDED_PROTO",), which is the name of the
+# header that is commonly used by reverse proxies to indicate the protocol
+# used by the client.
+# You can set this value to a different tuple if your reverse proxy is using
+# a different header name.
+SECURE_PROXY_SSL_HEADER=("HTTP_X_FORWARDED_PROTO")
+
 
 ALLOWED_HOSTS = []
 
