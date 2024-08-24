@@ -2,13 +2,16 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404
 from .models import Book
-from .forms import BookForm
+from .forms import ExampleForm
 
-def create_book(request):
+def example_form_view(request):
     if request.method == 'POST':
-        form = BookForm(request.POST)
-        if form.is_valid():
-            form.save()
+        form = ExampleForm(request.POST)
+        if form.is_valid():        
+            return redirect('success') 
+    else:
+        form = ExampleForm()
+    return render(request, 'bookshelf/form_example.html', {'form': form})
 
 
 def book_list(request):
