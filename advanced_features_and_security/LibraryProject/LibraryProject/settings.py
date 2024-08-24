@@ -67,7 +67,7 @@ SECURE_SSL_REDIRECT=True
 # https://docs.djangoproject.com/en/5.0/ref/middleware/#module-django.middleware.security
 # Note that this is only applied when the request is on HTTPS.
 # https://docs.djangoproject.com/en/5.0/ref/settings/#secure-hsts-seconds
-SECURE_HSTS_SECONDS=3600
+SECURE_HSTS_SECONDS=31536000
 
 # Include subdomains in the HSTS header. This is the default setting.
 # https://docs.djangoproject.com/en/5.0/ref/settings/#secure-hsts-include-subdomains
