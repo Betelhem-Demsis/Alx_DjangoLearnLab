@@ -53,7 +53,33 @@ CSRF_COOKIE_SECURE=True
 # Enable the secure flag for the session cookie. This will prevent the cookie
 # from being transmitted over an unencrypted channel.
 # https://docs.djangoproject.com/en/5.0/ref/settings/#session-cookie-secure
+# Enable the secure flag for the session cookie. This will prevent the cookie
+# from being transmitted over an unencrypted channel.
+# https://docs.djangoproject.com/en/5.0/ref/settings/#session-cookie-secure
 SESSION_COOKIE_SECURE=True
+
+# Redirect all requests to HTTPS. This is the default setting.
+# https://docs.djangoproject.com/en/5.0/ref/settings/#secure-ssl-redirect
+SECURE_SSL_REDIRECT=True
+
+# Enable the "HTTP Strict Transport Security" header. This helps to prevent
+# certain types of attacks, like man-in-the-middle (MITM) attacks.
+# https://docs.djangoproject.com/en/5.0/ref/middleware/#module-django.middleware.security
+# Note that this is only applied when the request is on HTTPS.
+# https://docs.djangoproject.com/en/5.0/ref/settings/#secure-hsts-seconds
+SECURE_HSTS_SECONDS=3600
+
+# Include subdomains in the HSTS header. This is the default setting.
+# https://docs.djangoproject.com/en/5.0/ref/settings/#secure-hsts-include-subdomains
+SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+
+# Enable the "preload" option for the HSTS header. This allows the browser to
+# preload the HSTS header, so that it is applied to all requests to the site,
+# even if the request is not over HTTPS.
+# https://docs.djangoproject.com/en/5.0/ref/settings/#secure-hsts-preload
+SECURE_HSTS_PRELOAD=True
+
+
 
 ALLOWED_HOSTS = []
 
