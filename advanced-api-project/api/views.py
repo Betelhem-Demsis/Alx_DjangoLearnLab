@@ -3,7 +3,7 @@ from rest_framework import generics
 from .models import Book
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
-from .serializers import BookSerializer
+from .seriealizers import BookSerializer
 from rest_framework import permissions
 from .permissions import IsAuthorOrReadOnly
 
@@ -47,4 +47,4 @@ class BookUpdateView(generics.UpdateAPIView):
 class BookDeleteView(generics.DestroyAPIView):
     queryset=Book.objects.all()
     serializer_class=BookSerializer
-     permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly]
