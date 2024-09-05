@@ -23,3 +23,9 @@ The book list endpoint (`/api/books/`) supports the following query parameters:
 - `ordering`: Order books by `title` or `publication_year` (use `-` for descending order, e.g., `-publication_year`)
 
 Example: `/api/books/?publication_year=2023&ordering=-title`
+
+### Running Unit Tests
+
+To run the unit tests for the Book API, use the following command:
+
+python manage.py test api
