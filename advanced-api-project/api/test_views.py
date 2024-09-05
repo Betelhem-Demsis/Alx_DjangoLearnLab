@@ -4,14 +4,26 @@ from django.urls import reverse
 from .models import Book
 from django.contrib.auth.models import User
 
-class BookAPITests(APITestCase):
+from rest_framework import status
+from django.contrib.auth.models import User
+from rest_framework.test import APITestCase
+from .models import Book
 
+class BookTests(APITestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='password')
-        self.book1 = Book.objects.create(title='Django for Beginners', author='William S. Vincent', publication_year=2018)
-        self.book2 = Book.objects.create(title='Learning Python', author='Mark Lutz', publication_year=2013)
-       
-        self.client.force_authenticate(user=self.user)
+        self.user = User.objects.create_user(username='testuser', password='password123')
+
+    def test_create_book_authenticated(self):
+        self.client.login(username='testuser', password='password123')
+        data = {'title': 'New Book', 'author': 'John Doe', 'publication_year': 2024}
+        response = self.client.post('/api/books/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_book_unauthenticated(self):
+        data = {'title': 'Unauthorized Book', 'author': 'Jane Doe', 'publication_year': 2025}
+        response = self.client.post('/api/books/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
 
     def tearDown(self):
         self.book1.delete()
