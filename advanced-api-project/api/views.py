@@ -8,8 +8,6 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from .permissions import IsAuthorOrReadOnly
 from .filters import BookFilter
 
-# Create your views here.
-
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -18,7 +16,7 @@ class BookListView(generics.ListAPIView):
     filterset_class = BookFilter
     search_fields = ['title', 'author']
     ordering_fields = ['title', 'publication_year', 'author']
-    ordering = ['title']  # Default ordering by title
+    ordering = ['title']  
 
     def get_queryset(self):
         queryset = super().get_queryset()
