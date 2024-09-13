@@ -28,7 +28,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
-         widgets = {
+        widgets = {
             'tags': TagWidget(),  # Use TagWidget for better tag input
         }
 
