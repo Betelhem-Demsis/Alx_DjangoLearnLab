@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
 from .models import Comment, Post, Tag
+from taggit.forms import TagWidget
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -27,6 +28,9 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
+         widgets = {
+            'tags': TagWidget(),  # Use TagWidget for better tag input
+        }
 
     def clean_tags(self):
         tags = self.cleaned_data.get('tags')
