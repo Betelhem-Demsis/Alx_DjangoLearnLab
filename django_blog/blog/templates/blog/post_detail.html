@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <article>
+        <h1>{{ object.title }}</h1>
+        <p>By {{ object.author }} on {{ object.published_date }}</p>
+        <p>{{ object.content }}</p>
+        <div class="tags">
+            Tags:
+            {% for tag in object.tags.all %}
+                <a href="{% url 'post-list' %}?tag={{ tag.name }}" class="tag">{{ tag.name }}</a>
+            {% empty %}
+                <span>No tags</span>
+            {% endfor %}
+        </div>
+    </article>
+    {% if user == object.author %}
+        <a href="{% url 'post-update' object.pk %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url 'post-delete' object.pk %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+
+    <h2>Comments</h2>
+    {% for comment in object.comments.all %}
+        <div class="comment">
+            <p>{{ comment.content }}</p>
+            <p>By {{ comment.author }} on {{ comment.created_at }}</p>
+            {% if user == comment.author %}
+                <a href="{% url 'comment-update' comment.pk %}">Edit</a>
+                <a href="{% url 'comment-delete' comment.pk %}">Delete</a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h3>Add a comment</h3>
+        <form method="POST" action="{% url 'add-comment' object.pk %}">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to add a comment.</p>
+    {% endif %}
+{% endblock content %}
