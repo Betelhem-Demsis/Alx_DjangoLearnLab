@@ -15,10 +15,11 @@ urlpatterns = [
     path('post/<int:pk>/comments/new/', views.add_comment, name='add-comment'),
     path('comment/<int:pk>/update/', views.CommentUpdateView.as_view(), name='comment-update'),
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment-delete'),
+    path("tags/<slug:tag_slug>/", views.PostByTagListView.as_view()),
     
     path('search/', views.search_posts, name='search-posts'),
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html', authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
-    path('profile/', views.profile, name='profile'),
+    path('profile/', views.profile, name='profile')
 ]
