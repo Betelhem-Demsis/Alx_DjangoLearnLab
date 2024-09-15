@@ -9,14 +9,11 @@ urlpatterns = [
     path('post/new/', views.PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
-    
-    # Comment URLs
     path('post/<int:pk>/comment/', views.CommentCreateView.as_view(), name='comment-create'),
     path('post/<int:pk>/comments/new/', views.add_comment, name='add-comment'),
     path('comment/<int:pk>/update/', views.CommentUpdateView.as_view(), name='comment-update'),
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment-delete'),
     path("tags/<slug:tag_slug>/", views.PostByTagListView.as_view()),
-    
     path('search/', views.search_posts, name='search-posts'),
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html', authentication_form=LoginForm), name='login'),
