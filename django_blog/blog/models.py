@@ -18,7 +18,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     tags = TaggableManager()
-    created_at = models.DateTimeField(auto_now_add=True)
+    published_date = models.DateTimeField(auto_now_add=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
