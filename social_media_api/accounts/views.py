@@ -1,7 +1,7 @@
 from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import permissions
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
@@ -10,7 +10,7 @@ from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 User = get_user_model()
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([permissions.AllowAny])
 def register(request):
     serializer = RegisterSerializer(data=request.data)
     if serializer.is_valid():
@@ -20,7 +20,7 @@ def register(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([permissions.AllowAny])
 def login(request):
     serializer = LoginSerializer(data=request.data)
     if serializer.is_valid():
@@ -30,27 +30,27 @@ def login(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated])
 def get_user_profile(request):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated])
 def get_following(request):
     following = request.user.following.all()
     serializer = UserSerializer(following, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated])
 def get_followers(request):
     followers = request.user.followers.all()
     serializer = UserSerializer(followers, many=True)
     return Response(serializer.data)
 
 class FollowUserView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
         current_user = request.user
@@ -69,7 +69,7 @@ class FollowUserView(generics.GenericAPIView):
             status=status.HTTP_200_OK)
 
 class UnfollowUserView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
         current_user = request.user
